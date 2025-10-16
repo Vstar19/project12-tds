@@ -1,0 +1,20 @@
+{
+  "email": "student@example.com",
+  "secret": "ue4rXyFci0N5WpzUYhR9apnpkQ3lsNxbUWCgQ_NK2FA",
+  "task": "sum-of-sales",
+  "round": 1,
+  "nonce": "nonce-round1-123",
+  "brief": "Publish a single-page site that fetches data.csv from attachments, sums its sales column, sets the title to 'Sales Summary 2025', displays the total inside #total-sales, and loads Bootstrap 5 from jsdelivr.",
+  "checks": [
+    "document.title === 'Sales Summary 2025'",
+    "!!document.querySelector(\"link[href*='bootstrap']\")",
+    "Math.abs(parseFloat(document.querySelector('#total-sales').textContent) - 30.75) < 0.01"
+  ],
+  "evaluation_url": "https://project1tds.free.beeceptor.com",
+  "attachments": [
+    {
+      "name": "data.csv",
+      "url": "data:text/csv;base64,cHJvZHVjdCxzYWxlcwoxLDEwLjUKMiwxNS4wMAozLDUuMjU="
+    }
+  ]
+}
