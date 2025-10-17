@@ -142,41 +142,46 @@ Return your response in the exact format:
 
 // In server/utils/llm.ts
 
+// In server/utils/llm.ts
+
+// In server/utils/llm.ts
+
 export async function updateExistingApp(
   existingCode: string,
   newBrief: string,
   checks: string[]
 ): Promise<GeneratedCode> {
-  // --- START OF NEW "CHAIN OF THOUGHT" PROMPT ---
-  const prompt = `You are an expert web developer specializing in surgical code modifications. Your task is to update an existing application by adding new features while guaranteeing that no existing functionality is broken.
+  const prompt = `You are an expert web developer specializing in surgical code modifications. Your task is to update an existing application by adding a new feature while strictly preserving its core functionality and user experience.
 
-### METHOD ###
-You must follow this Chain of Thought process:
-1.  **Analyze Existing Functionality:** First, in a <thinking> block, write a bulleted list of what the existing code does.
-2.  **Identify New Requirements:** Second, in the same <thinking> block, write a bulleted list of the new features requested in the user's brief.
-3.  **Formulate a Plan:** Third, in the same <thinking> block, write a step-by-step plan describing exactly how you will modify the existing code to integrate the new features without breaking the old ones.
-4.  **Execute the Plan:** Finally, after the <thinking> block, generate the updated code based on your plan.
+### CORE INSTRUCTIONS ###
+1.  **Analyze Existing Code:** First, fully understand the provided \`existingCode\`. Identify its core purpose and user interaction model (e.g., "it automatically loads and displays data," "it is an interactive form").
+2.  **Integrate New Features:** Read the \`newBrief\` and identify the single new feature to add.
+3.  **PRESERVE ALL ORIGINAL LOGIC:** When adding new code, you MUST ensure the original logic is still present and functional.
+4.  **DO NOT CHANGE THE CORE INTERACTION MODEL:** If the original page was a static display that loaded automatically, the updated page must also be a static display that loads automatically.
+5.  **CRITICAL FORBIDDEN ACTIONS:** Unless the brief explicitly asks for it, **DO NOT add \`<textarea>\` elements. DO NOT add \`<button>\` elements.** Only add the specific feature requested in the brief.
 
 ### YOUR TASK ###
 
-**Existing Code:**
+**Existing Code (to understand its features):**
 \`\`\`html
 ${existingCode}
 \`\`\`
 
-**New Brief:** ${newBrief}
-**Checks the Final Code Must Pass:** ${checks.join(', ')}
+**New Brief (the new feature to add):**
+\`\`\`
+${newBrief}
+\`\`\`
 
-**CRITICAL:** Generate the <thinking> block first, then generate the code. The final output must only contain the final code in the correct format.
+**Checks the Final, Combined Code Must Pass:**
+${checks.join(', ')}
 
 Return your response in this exact format:
 ===INDEX.HTML===
-[The full, updated index.html code with new features correctly integrated]
+[The full, updated index.html code with the new feature correctly integrated]
 ===README.MD===
-[An updated README.md that includes the new features]
+[An updated README.md that includes the new feature]
 ===LICENSE===
 [The full text of the MIT LICENSE]`;
-  // --- END OF NEW "CHAIN OF THOUGHT" PROMPT ---
 
   const response = await callLLM(prompt);
   return parseGeneratedCode(response);

@@ -1,0 +1,19 @@
+{
+  "email": "student@example.com",
+  "secret": "ue4rXyFci0N5WpzUYhR9apnpkQ3lsNxbUWCgQ_NK2FA",
+  "task": "markdown-to-html",
+  "round": 1,
+  "nonce": "nonce-round1-markdown-456",
+  "brief": "Add tabs #markdown-tabs that switch between rendered HTML in #markdown-output and the original Markdown in #markdown-source while keeping content in sync.",
+  "checks": [
+        "document.querySelectorAll(\"#markdown-tabs button\").length >= 2",
+        "document.querySelector(\"#markdown-source\").textContent.trim().length > 0"
+      ],
+  "evaluation_url": "https://project1tds.free.beeceptor.com",
+  "attachments": [
+    {
+      "name": "input.md",
+      "url": "data:text/markdown;base64,${seed}"
+    }
+  ]
+}
