@@ -1,0 +1,14 @@
+{
+  "email": "student@example.com",
+  "secret": "ue4rXyFci0N5WpzUYhR9apnpkQ3lsNxbUWCgQ_NK2FA",
+  "task": "github-user-created",
+  "round": 1,
+  "nonce": "nonce-round1-github-789",
+  "brief": "Show an aria-live alert #github-status that reports when a lookup starts, succeeds, or fails.",
+  "checks": [
+        "document.querySelector(\"#github-status\").getAttribute(\"aria-live\") === \"polite\"",
+        "!!document.querySelector(\"script\").textContent.includes(\"github-status\")"
+      ],
+  "evaluation_url": "https://project1tds.free.beeceptor.com",
+  "attachments": []
+}

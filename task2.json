@@ -4,11 +4,35 @@
   "task": "markdown-to-html",
   "round": 1,
   "nonce": "nonce-round1-markdown-456",
-  "brief": "Add tabs #markdown-tabs that switch between rendered HTML in #markdown-output and the original Markdown in #markdown-source while keeping content in sync.",
+  "brief": "Publish a static page that converts input.md from attachments to HTML with marked, renders it inside #markdown-output, and loads highlight.js for code blocks.",
   "checks": [
+    "!!document.querySelector(\"script[src*='marked']\")",
+    "!!document.querySelector(\"script[src*='highlight.js']\")",
+    "document.querySelector(\"#markdown-output\").innerHTML.includes(\"<h\")"
+  ],
+  "round2": [
+    {
+      "brief": "Add tabs #markdown-tabs that switch between rendered HTML in #markdown-output and the original Markdown in #markdown-source while keeping content in sync.",
+      "checks": [
         "document.querySelectorAll(\"#markdown-tabs button\").length >= 2",
         "document.querySelector(\"#markdown-source\").textContent.trim().length > 0"
-      ],
+      ]
+    },
+    {
+      "brief": "Support loading Markdown from a ?url= parameter when present and fall back to the attachment otherwise, showing the active source in #markdown-source-label.",
+      "checks": [
+        "document.querySelector(\"#markdown-source-label\").textContent.length > 0",
+        "!!document.querySelector(\"script\").textContent.includes(\"fetch(\")"
+      ]
+    },
+    {
+      "brief": "Display a live word count badge #markdown-word-count that updates after every render and formats numbers with Intl.NumberFormat.",
+      "checks": [
+        "document.querySelector(\"#markdown-word-count\").textContent.includes(\",\")",
+        "!!document.querySelector(\"script\").textContent.includes(\"Intl.NumberFormat\")"
+      ]
+    }
+  ],
   "evaluation_url": "https://project1tds.free.beeceptor.com",
   "attachments": [
     {
